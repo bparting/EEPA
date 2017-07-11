@@ -1,0 +1,651 @@
+New form:
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<title>EEPA Request</title>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="description" content="Individual EEPA request form">
+<meta name="keywords" content="individual eepa, eepa request, forms, interactive">
+<meta name="creation_date" content="04/21/05">
+<meta name="web_author" content="indwebreq">
+<meta name="content_owner" content="Individual">
+
+
+
+<script type="text/javascript" src="/assets/scripts/sn_utilities.js"></script>
+<script src="/individual/forms/eepa/css.js" type="text/javascript"></script>
+<script src="/individual/forms/eepa/common.js" type="text/javascript"></script>
+<script src="/individual/forms/eepa/required-sn.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+addEvent(window, "load", initDisplay)
+
+/* --------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------*/
+function initDisplay() {
+        document.getElementById("eepa").reset();
+}//
+
+<!-- Original:  Cyanide_7 (leo7278@hotmail.com) -->
+<!-- Web Site:  http://www7.ewebcity.com/cyanide7 -->
+
+<!-- Begin
+function formatCurrency(num) {
+num = num.toString().replace(/\$|\,/g,'');
+if(isNaN(num))
+num = "0";
+sign = (num == (num = Math.abs(num)));
+num = Math.floor(num*100+0.50000000001);
+cents = num%100;
+num = Math.floor(num/100).toString();
+if(cents<10)
+cents = "0" + cents;
+for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+num = num.substring(0,num.length-(4*i+3))+','+
+num.substring(num.length-(4*i+3));
+return (((sign)?'':'-') + '$' + num + '.' + cents);
+}
+//  End -->
+
+
+/* --------------------------------------------------------------------------------------
+Called optionally after passing validation by require.js, which adds an onsubmit event
+to the form.
+-----------------------------------------------------------------------------------------*/
+function submitHandler() {
+
+        form = document.getElementById("eepa");
+        clearHiddenFields(form);
+//      createReport(form, "window");     //"window" for debug, "formReport" for actual use.
+//      createReport(form, "formReport");     //"window" for debug, "formReport" for actual use.
+//      prepareMGADetails();
+        // alert("fake submit");
+}
+
+
+/* --------------------------------------------------------------------------------------
+Clears fields (or sets to default) that are display:none or visibility:hidden;
+Does not effect fields with type="hidden"
+Provide form object or form id.
+Requires css.isHidden()
+
+Radios  - if all the radio buttons in a set are hidden, then we reset the radio to the
+  defaulted one - the button with "checked=checked"
+
+-----------------------------------------------------------------------------------------*/
+function clearHiddenFields(form) {
+        if(typeof form == "string") { form = document.getElementById(form); }
+
+        var els = form.elements;        
+        for (var i=0; i<els.length; i++) {
+                var el = els[i];
+                if (css.isHidden(el)) {
+                //alert("id:"+ el.id+ " ------tagName:"+el.tagName + " ------typeof:"+typeof el+ " -----type:"+el.type   )
+                        if (el.type == "text" || el.type== "textarea") {
+                                el.value = "";
+                        } else if (el.type == "radio") {
+                                //reset the radio button the default if all the radio buttons are hidden.       
+                                var radios = document.getElementsByName(el.name);
+//                              alert("id is:"+el.id+ "-------checked attribute is: "+el.getAttribute("checked")+"----checked is:"+el.checked );
+                                var hiddenCount = 0;
+                                var defaultRadio = 0;
+                                for (var c=0; c<radios.length; c++) {
+                                        var r = radios[c];
+                                        if ( css.isHidden(r) ) { hiddenCount++;  }
+                                        if (r.getAttribute("checked") == "checked") {
+                                                defaultRadio = c;
+                                        }
+                                }
+                                if (hiddenCount == radios.length) {radios[defaultRadio].checked = true;}
+                                
+                        } else if (el.type == "checkbox") {
+                                el.checked = false;
+                        } else if (el.type == "select-one") {
+                            el.selectedIndex = 0;
+                        }
+                }
+        }
+        
+}//     
+
+</script>
+
+<script Language="JavaScript">
+<!-- 
+function check_policy_length()
+{
+if (eepa.policy.value.length < 10)
+{
+// Build alert box message showing how many characters entered
+mesg = "You have entered " + eepa.policy.value.length + " character(s)\n"
+mesg = mesg + "Policy number must be at least ten characters in length."
+alert(mesg);
+// Place the cursor on the field for revision
+eepa.policy.focus();
+// return false to stop further processing
+return (false);
+}
+// If policy is not null continue processing
+return (true);
+}
+-->
+</script>
+
+<link rel="stylesheet" type="text/css" href="/assets/styles/sn_general.css">
+<link rel="stylesheet" type="text/css" href="/assets/styles/sn_font_sans.css">
+<link rel="stylesheet" type="text/css" href="/assets/styles/sn_color_ind.css">
+
+<style type="text/css">
+.startHidden {
+        display:none;
+}
+
+.required {
+        text-weight: bolder;
+        color: red;
+}
+
+/* THESE STYLES REQUIRED FOR SWITCH */
+
+.snSwitchDisplay, .snToggleDisplay {    /* elements have this class name deleted by script on load */
+        display: none;
+}
+.snSwitchDisplayHide, .snToggleDisplayHide {
+        display: none !important;
+}
+
+a.snSwitchControl, a.snToggleControl {
+        cursor: pointer;
+        border-bottom: 1px dashed #000000;      /* border color needed for IE6 */
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<!--** Begin include file for StandardNet logo **-->
+<div id="snLogo">
+<a href="/index.html" id="top" title="StandardNet home page"><img id="snLogoImg" src="/assets/graphics/ind/sn_logo_ind.gif" alt="StandardNet"/></a>
+</div>
+<!--** End include file for StandardNet logo **-->
+
+<div class="left">
+<div id="instructions">
+<h2>Form Instructions</h2>
+
+<p>
+Fill in the blanks and select the "submit" button at the bottom of the form to send it.
+</p>
+
+<p>
+Should you have further questions e-mail <a href="mailto:indwebreq@standard.com">indwebreq</a>.
+</p>
+
+</div>
+</div>
+
+
+<p class="update" style="margin-top: 1em;">Updated: <span id="lmd">07/10/2017</span><script type="text/javascript">fixSSIlmd(document.getElementById('lmd'));</script></p>
+
+
+<div class="content" id="content">
+
+<p>
+<h2>EEPA Request Form</h2> (Request for manual drafts from DDA accounts)
+<p></p>
+
+<p>* &#8211; indicates required field
+</p>
+
+
+<form id="eepa" action="/cgi-bin/mailmerge2.cgi/individual/forms/eepa/eepa.txt" method="post" onsubmit="return check_policy_length()"> 
+
+<table>
+
+<caption>Request</caption>
+
+<col width="35%">
+<col>
+
+<tbody>
+
+<tr>
+        <td colspan="2"><div id="errorMsgLocation"></div></td>
+</tr>
+
+<tr style="background-color:#ebebeb;">
+        <td><label for="snAuto_email">*Requestor's Email:</label></td>
+        <td><input class="validate" type="text" name="snAuto_email" id="snAuto_email" size="30" maxlength="30"></td>
+</tr>
+
+<tr>
+        <td><label for="policy">*Policy:</label></td>
+        <td><input class="validate" type="text" name="policy" id="policy" size="30" maxlength="30"></td>
+</tr>
+
+<tr style="background-color:#ebebeb;">
+        <td><label for="insured">*Insured Name:</label>
+        </td>
+        <td><input class="validate" type="text" name="insured" id="insured" size="30" maxlength="30"></td>
+</tr>
+
+<tr>
+        <td><label for="authdraft">*Draft:</label></td>
+        <td><select class="validate" name="authdraft" id="authdraft">
+                        <option>Please select one</option>
+                        <option>Policy Owner Authorized Draft</option>
+                        <option>Producer Authorized Draft</option>
+                        <option>Home Office Error</option>
+                </select>
+        </td>
+</tr>
+
+<tr style="background-color:#ebebeb;">
+        <td><label for="statdraft">*Draft Application:</label></td>
+        <td><select class="validate" name="statdraft" id="statdraft">
+                        <option>Please select one</option>
+                        <option>Pending Cash</option>
+                        <option>Place in UAF</option>
+                        <option>Receivable in ID3</option>
+                        <option>Place on policy</option>
+                </select>
+        </td>
+</tr>
+
+<tr>
+        <td><span class="wcRadioLabel validate" id="bankverify">*Accurate bank information<br> &nbsp;verified on system:</span></td>
+
+        <td>
+        <input class="startHidden" type="radio" id="bankverify_none" name="bankverify" value="" checked="checked" /><label>
+        <input type="radio" id="bankverify_yes" name="bankverify" value="Yes"/> </label><label for="bankverify_yes">Yes</label>&nbsp;&nbsp;
+        <input type="radio" id="bankverify_no" name="bankverify" value="No"/> <label for="bankverify_no">No</label>
+        </td>
+</tr>
+
+<tr style="background-color:#ebebeb;">
+        <td><label for="frmloc">*Bank Information/EFT form location:</label></td>
+        <td><select class="validate" name="frmloc" id="frmloc">
+                        <option>Please select one</option>
+                        <option>EFT information already in imaging or file</option>
+                        <option>ID3 billing panel under policy #</option>
+            </select>
+        </td>
+</tr>
+
+<tr>
+        <td><label for="polnum">Policy containing EFT information<br> (if applicable):</label></td>
+        <td><input type="text" name="polnum" id="polnum" size="30" maxlength="30"></td>
+</tr>
+
+<tr style="background-color:#ebebeb;">
+        <td><label for="abanum">Bank Routing/ABA Number:</label></td>
+        <td><input type="text" name="abanum" id="abanum" size="30" maxlength="30"></td>
+</tr>
+
+<tr>
+        <td><label for="acctnum">Bank Account Number:</label></td>
+        <td><input type="text" name="acctnum" id="acctnum" size="30" maxlength="30"></td>
+</tr>
+
+<tr style="background-color:#ebebeb;">
+        <td>
+                <label for="accttype">Bank Account Type:</label>
+        </td>
+        <td><select class="validate" name="accttype" id="accttype">
+                        <option>Please select one</option>
+                        <option>Checking</option>
+                        <option>Savings</option>
+                </select>
+        </td>
+</tr>
+
+<tr>
+        <td><label for="poltype">*IDI or GSI Policy:</label></td>
+        <td><select class="validate" name="poltype" id="poltype">
+            <option value="eepa@standard.com">Please select one</option>
+            <option value="eepa@standard.com">SIC - IDI</option>
+            <option value="eepa@standard.com">SNY - IDI</option>
+            <option value="gsieepa@standard.com">SIC - GSI</option>
+            <option value="gsieepa@standard.com">SNY - GSI</option>
+            
+            </select>				
+        </td>
+</tr>
+
+<tr style="background-color:#ebebeb;">
+        <td><label for="insured">*EEPA Draft Day Requested (GSI ONLY):</label>
+        </td>
+        <td><input class="validate" type="text" name="insured" id="insured" size="30" maxlength="30"></td>
+</tr>
+<tr>
+        <td colspan="2"><strong>EEPA QA turnaround time is 24 hours. QA will send file to records, unless otherwise noted.</strong></td>
+</tr>
+
+</tbody>
+</table>
+
+<table>
+
+<col width="35%">
+<col>
+
+<tbody>
+
+<tr>
+                <th>Month</th>
+                <th>Amount</th>
+                <th>Reason for Draft</th>
+</tr>
+        
+<tr>
+                <td>
+                <label for="month1" class="startHidden">Month</label>
+                <select name="month1" id="month1" >
+                        <option></option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                </select></td>
+                
+                <td class="lite">
+                <label for="amount1" class="startHidden">Amount</label>
+                <input type="text" id="amount1" name="amount1" size=10 maxlength=10 onBlur="this.value=formatCurrency(this.value);">
+                </td>
+                
+                <td class="lite">
+                <label for="reason1" class="startHidden">Reason</label>
+                <input type="text"  id="reason1" name="reason1" size=40 maxlength=50>
+                </td>
+</tr>
+        
+<tr>
+                <td>
+                <label for="month2" class="startHidden">Month</label>
+                <select name="month2"  id="month2" >
+                        <option></option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                </select>
+                </td>
+                
+                <td>
+                <label for="amount2" class="startHidden">Amount</label>
+                <input type="text"  id="" name="amount2" size=10 maxlength=10 onBlur="this.value=formatCurrency(this.value);">
+                </td>
+                
+                <td>
+                <label for="reason2" class="startHidden">Reason</label>
+                <input type="text"  id="reason2" name="reason2" size=40 maxlength=50>
+                </td>
+</tr>
+        
+<tr>
+                <td>
+                <label for="month3" class="startHidden">Month</label>
+                <select name="month3" id="month3" >
+                        <option></option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                </select>
+                </td>
+                
+                <td>
+                <label for="amount3" class="startHidden">Amount</label>
+                <input type="text"  id="amount3" name="amount3" size=10 maxlength=10 onBlur="this.value=formatCurrency(this.value);">
+                </td>
+                
+                <td>
+                <label for="reason3" class="startHidden">Reason</label>
+                <input type="text"  id="reason3" name="reason3" size=40 maxlength=50>
+                </td>
+</tr>
+        
+<tr>
+                <td>
+                <label for="month4" class="startHidden">Month</label>
+                <select name="month4" id="month4" >
+                        <option></option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                </select>
+                </td>
+                
+                <td>
+                <label for="amount4" class="startHidden">Amount</label>
+                <input type="text"  id="amount4" name="amount4" size=10 maxlength=10 onBlur="this.value=formatCurrency(this.value);">
+                </td>
+                
+                <td>
+                <label for="reason4" class="startHidden">Reason</label>
+                <input type="text"  id="reason4" name="reason4" size=40 maxlength=50>
+                </td>
+</tr>
+        
+<tr>
+                <td>
+                <label for="month5" class="startHidden">Month</label>
+                <select name="month5" id="month5" >
+                        <option></option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                </select>
+                </td>
+                
+                <td>
+                <label for="amount5" class="startHidden">Amount</label>
+                <input type="text"  id="amount5" name="amount5" size=10 maxlength=10 onBlur="this.value=formatCurrency(this.value);">
+                </td>
+                
+                <td>
+                <label for="reason5" class="startHidden">Reason</label>
+                <input type="text"  id="reason5" name="reason5" size=40 maxlength=50>
+                </td>
+</tr>
+        
+<tr>
+                <td>
+                <label for="month6" class="startHidden">Month</label>
+                <select name="month6" id="month6" >
+                        <option></option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                </select>
+                </td>
+                
+                <td>
+                <label for="amount6" class="startHidden">Amount</label>
+                <input type="text"  id="amount6" name="amount6" size=10 maxlength=10 onBlur="this.value=formatCurrency(this.value);">
+                </td>
+                
+                <td>
+                <label for="reason6" class="startHidden">Reason</label>
+                <input type="text"  id="reason6" name="reason6" size=40 maxlength=50>
+                </td>
+</tr>
+        
+<tr>
+                <td>
+                <label for="month7" class="startHidden">Month</label>
+                <select name="month7" id="month7" >
+                        <option></option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                </select>
+                </td>
+                
+                <td>
+                <label for="amount7" class="startHidden">Amount</label>
+                <input type="text"  id="amount7" name="amount7" size=10 maxlength=10 onBlur="this.value=formatCurrency(this.value);">
+                </td>
+                
+                <td>
+                <label for="reason7" class="startHidden">Reason</label>
+                <input type="text"  id="reason7" name="reason7" size=40 maxlength=50>
+                </td>
+</tr>
+</tbody>
+</table>
+
+         
+
+
+<!-- Start Submission Form Buttons -->
+
+<p align="center">
+
+<input type="button" name="submitButton" value="Submit Form" onClick=validate(this.form)>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="Clear" value="Clear Form">
+
+</p>
+
+<!-- End Submission Form Buttons -->   
+</form>
+
+<p><img src="../../images/button_print.gif" width="20" height="15" alt="Printable Page"><a href="printpage.html">Printable Page</a></p>
+
+
+<p class="pageTop"><a href="#top">top of page</a></p>
+
+
+</div>
+
+<!--end of "content"-->
+
+
+
+<!--** Begin include file for StandardNet footer utilities **-->
+
+<!--StandardNet footer-->
+<div class="snFooter">
+<p class="snContact">For issues concerning this page, please email <a id="snSupportContact" href="mailto:websupport@standard.com">CorpCommWeb@standard.com</a>.</p>
+<p class="snCopyright"><span class="nobr">Copyright &#x00A9; 2017 <a href="http://www.stancorpfinancial.com/">StanCorp Financial Group, Inc.</a></span> <span class="nobr">All Rights Reserved. Company Confidential.</span></p>
+</div><!--end StandardNet footer-->
+
+
+<!--StandardNet header: this element resides in the footer, but moved to the header by the StandardNet template script-->
+<div id="snHeader">
+<iframe id="snHeaderObject" src="/assets/includes/sn_header-utility.html" frameborder="0" width="360" height="71"></iframe>
+</div><!--end StandardNet header-->
+
+
+<!--template version-->
+<div id="snTemplateVersion">
+StandardNet template : Version 1.1
+</div><!--end template version-->
+
+
+<!-- START OF SmartSource Data Collector TAG -->
+<!-- Copyright (c) 1996-2011 WebTrends Inc.  All rights reserved. -->
+<!-- Version: 9.3.0 -->
+<!-- Tag Builder Version: 3.1  -->
+<!-- Created: 4/15/2011 8:58:17 PM -->
+<script src="/assets/scripts/webtrends.js" type="text/javascript"></script>
+<!-- *********************************************************************************** -->
+<!-- Warning: The two script blocks below must remain inline. Moving them to an external -->
+<!-- JavaScript include file can cause serious problems with cross-domain tracking.      -->
+<!-- *********************************************************************************** -->
+<script type="text/javascript">
+//<![CDATA[
+var _tag=new WebTrends();
+_tag.dcsGetId();
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+_tag.dcsCustom=function(){
+// Add custom parameters here.
+//_tag.DCSext.param_name=param_value;
+}
+_tag.dcsCollect();
+//]]>
+</script>
+<noscript>
+<div><img alt="DCSIMG" id="DCSIMG" width="1" height="1" src="http://sdc.standard.com/dcsbhyrbt4qvsnoy2ksfy7lji_3y9b/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=9.3.0&amp;WT.dcssip=www.standard.com"/></div>
+</noscript>
+<!-- END OF SmartSource Data Collector TAG -->
+
+<!--** End include file for StandardNet footer utilities **-->
+
+
+
+</body>
+
+</html>
+
